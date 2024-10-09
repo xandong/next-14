@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Main /> should be render element 1`] = `
+<main>
+  <h1>
+    Main Component
+  </h1>
+</main>
+`;
+
+exports[`<Main /> should render the element 1`] = `
+<main>
+  <h1>
+    Main Component
+  </h1>
+</main>
+`;
