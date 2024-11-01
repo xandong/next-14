@@ -12,7 +12,7 @@ describe("<Main />", () => {
       screen.getByRole("heading", {
         name: /main component/i
       })
-    )
+    ).toBeInTheDocument()
 
     // gera snapshot
     expect(container.firstChild).toMatchSnapshot()
