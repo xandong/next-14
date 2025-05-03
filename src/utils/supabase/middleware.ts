@@ -1,15 +1,16 @@
 // src/utils/supabase/middleware.ts
 
-import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
-import { getSupabaseEnvironment } from './common'
-import { authRoutes, signInPath } from '../routes'
+import { createServerClient } from "@supabase/ssr"
+import { NextResponse, type NextRequest } from "next/server"
+import { getSupabaseEnvironment } from "./common"
+import { authRoutes, signInPath } from "../routes"
 
 export async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
+  const supabaseResponse = NextResponse.next({
+    request
   })
-  const { NEXT_PUBLIC_SUPABASE_ANON_KEY, NEXT_PUBLIC_SUPABASE_URL } = getSupabaseEnvironment()
+  const { NEXT_PUBLIC_SUPABASE_ANON_KEY, NEXT_PUBLIC_SUPABASE_URL } =
+    getSupabaseEnvironment()
 
   const supabase = createServerClient(
     NEXT_PUBLIC_SUPABASE_URL,
@@ -24,11 +25,11 @@ export async function updateSession(request: NextRequest) {
             cookiesToSet.forEach(({ name, value, options }) =>
               supabaseResponse.cookies.set(name, value, options)
             )
-          } catch(err) {
+          } catch (err) {
             console.error("Error when set all cookies: " + JSON.stringify(err))
           }
-        },
-      },
+        }
+      }
     }
   )
 
@@ -39,14 +40,14 @@ export async function updateSession(request: NextRequest) {
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
   const {
-    data: { user },
+    data: { user }
   } = await supabase.auth.getUser()
 
-  console.log({user})
+  console.log({ user })
 
   if (
     !user &&
-    !authRoutes.some(authR => request.nextUrl.pathname.startsWith(authR))
+    !authRoutes.some((authR) => request.nextUrl.pathname.startsWith(authR))
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
@@ -55,7 +56,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (user && authRoutes.includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL("/", request.url))
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
