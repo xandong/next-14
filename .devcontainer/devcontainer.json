@@ -3,7 +3,7 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "next",
   "workspaceFolder": "/workspace/app",
-  "remoteUser": "node",
+  "remoteUser": "vscode",
   "postCreateCommand": "npm install",
   "customizations": {
     "vscode": {
