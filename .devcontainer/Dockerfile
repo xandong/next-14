@@ -1,13 +1,9 @@
-FROM node:20-alpine
+FROM node:22.15.0-alpine3.21
 
 RUN apk add --no-cache bash curl git
 
 WORKDIR /workspace/app
 
-COPY ../package*.json ../app
+COPY ../package*.json ./
 
-RUN cd .. && cd app && npm install
-
-COPY ../ .
-
-CMD ["npm", "run", "dev"]
+RUN npm install

@@ -1,0 +1,17 @@
+{
+  "name": "Next.js Dev Container",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "next",
+  "workspaceFolder": "/workspace/app",
+  "remoteUser": "node",
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
+}
