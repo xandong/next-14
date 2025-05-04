@@ -1,5 +1,10 @@
-import Main from "@/components/Main"
+import { AppLayout } from "@/components/layout/app-layout"
+import Main from "@/components/layout/main"
 
 export default function Home() {
-  return <Main />
+  return (
+    <AppLayout>
+      <Main />
+    </AppLayout>
+  )
 }

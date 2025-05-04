@@ -43,8 +43,6 @@ export async function updateSession(request: NextRequest) {
     data: { user }
   } = await supabase.auth.getUser()
 
-  console.log({ user })
-
   if (
     !user &&
     !authRoutes.some((authR) => request.nextUrl.pathname.startsWith(authR))
