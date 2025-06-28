@@ -11,7 +11,6 @@ import { AuthLayout } from "@/components/layout/auth-layout"
 import { Button } from "@/components/_ui/button"
 import { Input } from "@/components/_ui/input"
 import { PasswordInput } from "@/components/_ui/input-password"
-import { login } from "@/app/(auth)/_actions"
 import {
   Form,
   FormControl,
@@ -21,7 +20,6 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/_ui/form"
-import { toast } from "sonner"
 
 const signInSchema = z.object({
   email: z
@@ -47,16 +45,9 @@ export default function SignIn() {
 
   const onSubmit = useCallback(async (formData: SignInSchema) => {
     const data = signInSchema.parse(formData)
+    console.log(data)
 
     setLoading(true)
-
-    await login(data)
-      .then((data) => {
-        if (data?.error) {
-          toast.error(data.error)
-        }
-      })
-      .finally(() => setLoading(false))
   }, [])
 
   return (

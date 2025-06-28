@@ -18,10 +18,8 @@ import { Loader2 } from "lucide-react"
 import { AuthLayout } from "@/components/layout/auth-layout"
 import { Button } from "@/components/_ui/button"
 import { Input } from "@/components/_ui/input"
-import { signup } from "../_actions"
 import { z } from "zod"
 import { PasswordInput } from "@/components/_ui/input-password"
-import { toast } from "sonner"
 
 const signUpSchema = z
   .object({
@@ -53,7 +51,7 @@ type SignUpSchema = z.infer<typeof signUpSchema>
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false)
-  const [confirmationStep, setConfirmationStep] = useState(false)
+  const [confirmationStep] = useState(false)
 
   const form = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
@@ -69,19 +67,8 @@ export default function SignUp() {
 
   const onSubmit = useCallback(async (formData: SignUpSchema) => {
     const data = signUpSchema.parse(formData)
-
+    console.log(data)
     setLoading(true)
-
-    await signup(data)
-      .then((response) => {
-        if (response?.confirmation_sent) {
-          setConfirmationStep(response.confirmation_sent)
-        }
-        if (response?.error) {
-          toast.error(response.error)
-        }
-      })
-      .finally(() => setLoading(false))
   }, [])
 
   return (

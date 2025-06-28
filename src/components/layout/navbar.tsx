@@ -1,4 +1,3 @@
-import { createClient } from "@/utils/supabase/server"
 import {
   Menubar,
   MenubarContent,
@@ -9,17 +8,9 @@ import {
 import { LogoutButton } from "./logout-button"
 
 export const Navbar = async () => {
-  const client = await createClient()
-  const {
-    data: { user }
-  } = await client.auth.getUser()
-
-  const displayName = `${user?.user_metadata?.firstName} ${user?.user_metadata?.lastName}`
-
   return (
     <nav>
       <ul className="flex items-center gap-3">
-        <li>{displayName}</li>
         <Menubar className="bg-transparent border-none focus:bg-transparent p-0 rounded-full">
           <MenubarMenu>
             <MenubarTrigger className="bg-transparent p-1 rounded-full">

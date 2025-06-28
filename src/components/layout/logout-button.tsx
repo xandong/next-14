@@ -1,13 +1,10 @@
 "use client"
 
-import { logout } from "@/app/(auth)/_actions"
 import { LogOutIcon } from "lucide-react"
 import { useCallback } from "react"
 
 export const LogoutButton = () => {
-  const onClick = useCallback(async () => {
-    await logout()
-  }, [])
+  const onClick = useCallback(async () => {}, [])
 
   return (
     <button
