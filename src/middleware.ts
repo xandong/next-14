@@ -1,8 +1,27 @@
 import { NextResponse, type NextRequest } from "next/server"
 
+const domainUrl = process.env.NEXT_PUBLIC_DOMAIN
+
 export async function middleware(request: NextRequest) {
+  const hostname = request.headers.get("host") || ""
+  const currentHost = hostname.replace(`.${domainUrl}`, "")
+
+  const url = request.nextUrl.clone()
+
+  console.log({ currentHost })
+
+  if (
+    currentHost === "www" ||
+    currentHost === "localhost" ||
+    currentHost === domainUrl ||
+    currentHost === ""
+  ) {
+    return NextResponse.next()
+  }
+
   console.log("middleware", request.nextUrl.pathname)
-  return NextResponse.next()
+  url.pathname = `/${currentHost}${url.pathname}`
+  return NextResponse.rewrite(url)
 }
 
 export const config = {
